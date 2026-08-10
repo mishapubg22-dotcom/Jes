@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dempa — официальный сайт</title>
+  <meta name="description" content="Официальная страница Dempa в Telegram" />
+  <style>
+    :root { --bg:#070a13; --card:rgba(15,20,38,.72); --text:#f6f7ff; --muted:#9da8c8; --accent:#73e6ff; --accent2:#9c7bff; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; color:var(--text); font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif; background:radial-gradient(circle at 15% 15%,#18204a 0,transparent 38%),radial-gradient(circle at 85% 80%,#20234f 0,transparent 40%),var(--bg); overflow:hidden; image-rendering:pixelated; }
+    canvas { position:fixed; inset:0; width:100%; height:100%; z-index:0; opacity:.75; }
+    .wrap { position:relative; z-index:1; min-height:100vh; display:grid; place-items:center; padding:24px; }
+    .card { width:min(560px,100%); padding:clamp(28px,7vw,58px) clamp(22px,7vw,58px) 28px; text-align:center; border:2px solid rgba(170,190,255,.24); border-radius:8px; background:var(--card); box-shadow:0 24px 90px #0008, inset 0 1px #ffffff15; backdrop-filter:blur(18px); animation:rise .8s ease both; }
+    .orb { width:104px; height:104px; margin:0 auto 22px; display:grid; place-items:center; overflow:hidden; border-radius:50%; font-size:37px; font-weight:800; letter-spacing:-3px; color:#080b19; background:linear-gradient(135deg,var(--accent),var(--accent2)); box-shadow:0 0 42px #74e6ff77; }
+    .orb img { width:100%; height:100%; object-fit:cover; display:block; }
+    h1 { margin:0; font-size:clamp(34px,9vw,58px); letter-spacing:-2px; line-height:1; }
+    .handle { display:inline-block; margin-top:10px; color:var(--accent); font-size:18px; }
+    .line { width:80px; height:2px; margin:24px auto; background:linear-gradient(90deg,var(--accent),var(--accent2)); border-radius:9px; }
+    .about { margin:0 auto 27px; color:var(--muted); font-size:16px; line-height:1.6; }
+    .tag { display:inline-block; margin:0 0 16px; padding:6px 11px; border:1px solid #73e6ff44; border-radius:3px; color:#9cefff; background:#73e6ff0d; font-size:11px; letter-spacing:2px; text-transform:uppercase; }
+    .buttons { display:flex; flex-direction:column; gap:12px; }
+    a,button { min-height:52px; display:flex; align-items:center; justify-content:center; gap:10px; border:0; border-radius:4px; font:inherit; font-weight:700; text-decoration:none; cursor:pointer; transition:.2s transform,.2s box-shadow,.2s background; }
+    a:hover,button:hover { transform:translateY(-2px); }
+    .telegram { color:#06101d; background:linear-gradient(100deg,#6be5ff,#8bb8ff); box-shadow:0 8px 25px #61dfff33; }
+    .music { color:var(--text); background:#ffffff0e; border:1px solid #ffffff18; }
+    .music.on { background:#8c79ff28; border-color:#9f8dff88; }
+    .hint { margin:22px 0 0; color:#8791af; font-size:13px; }
+    footer { margin-top:28px; padding-top:18px; border-top:1px solid #ffffff12; color:#aab2cc; font-size:14px; }
+    footer strong { color:#fff; }
+    @keyframes rise { from { opacity:0; transform:translateY(18px) scale(.98); } to { opacity:1; transform:none; } }
+    @media (max-width:420px) { .card { border-radius:4px; } .orb { width:88px; height:88px; font-size:31px; } }
+  </style>
+</head>
+<body>
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <main class="wrap"><section class="card">
+    <div class="orb"><img src="photo_2026-05-13_10-58-02.jpg" alt="Аватар Dempa"></div>
+    <span class="tag">Official page</span>
+    <h1>Dempa</h1>
+    <span class="handle">@dempaofficle</span>
+    <div class="line"></div>
+    <p class="about">Официальная страница в Telegram<br>Новости, общение и полезные материалы</p>
+    <div class="buttons">
+      <a class="telegram" href="https://t.me/dempaofficle" target="_blank" rel="noopener">✈️ Перейти в Telegram</a>
+    </div>
+    <p class="hint">По багам пиши мне в личку</p>
+    <footer>Владелец: <strong>JesTIme</strong></footer>
+  </section></main>
+  <audio id="music" loop preload="auto" autoplay src="Irokz%20-%20Topic%20Majestic%20Funk%20Universo%20(Slowed).m4a"></audio>
+  <script>
+    const canvas=document.querySelector('#particles'),ctx=canvas.getContext('2d'); let dots=[];
+    function resize(){canvas.width=innerWidth*devicePixelRatio;canvas.height=innerHeight*devicePixelRatio;ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);dots=Array.from({length:Math.min(100,Math.floor(innerWidth/11))},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*2.8+.5,vx:(Math.random()-.5)*.25,vy:-Math.random()*.45-.08,a:Math.random()*.65+.15}));} resize(); addEventListener('resize',resize);
+    const icons=['⛏','⚔','🧨','💥','⛏','🧱']; dots=dots.map((d,i)=>({...d,icon:icons[i%icons.length],spin:(Math.random()-.5)*.025,size:18+Math.random()*16,rot:Math.random()*6.2}));
+    function animate(){ctx.clearRect(0,0,innerWidth,innerHeight); for(const d of dots){d.x+=d.vx;d.y+=d.vy;d.rot+=d.spin;if(d.y<-30)d.y=innerHeight+30;if(d.x< -30)d.x=innerWidth+30;if(d.x>innerWidth+30)d.x=-30;ctx.save();ctx.translate(d.x,d.y);ctx.rotate(d.rot);ctx.font=`${d.size}px sans-serif`;ctx.globalAlpha=d.a;ctx.shadowColor=d.icon==='💥'?'#ffb52e':'#73e6ff';ctx.shadowBlur=12;ctx.fillText(d.icon,-d.size/2,d.size/2);ctx.restore();} requestAnimationFrame(animate);} animate();
+    const audio=document.querySelector('#music');
+    // Браузеры блокируют автозвук; запускаем его сразу и повторяем при первом касании страницы.
+    const startMusic=()=>{audio.play().catch(()=>{});};
+    startMusic();
+    document.addEventListener('pointerdown',startMusic,{once:true,passive:true});
+    document.addEventListener('keydown',startMusic,{once:true,passive:true});
+  </script>
+</body>
+</html>
